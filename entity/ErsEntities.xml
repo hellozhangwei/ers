@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-1.6.xsd">
+
+    <entity entity-name="Survey" package-name="com.vw.ers" short-alias="surveys">
+        <field name="surveyId" type="id" is-pk="true"/>
+        <field name="surveyName" type="text-medium"/>
+        <field name="description" type="text-medium"/>
+        <field name="comments" type="text-long"/>
+        <field name="submitCaption" type="text-short"/>
+        <field name="responseService" type="text-long"/>
+        <field name="isAnonymous" type="text-indicator"><description>Allow response to the survey without login?</description></field>
+        <field name="allowMultiple" type="text-indicator"><description>Allow multiple responses to this survey (if Y), or just a single answer (if N)?</description></field>
+        <field name="allowUpdate" type="text-indicator"><description>Allow change to responses?</description></field>
+
+        <relationship type="many" related-entity-name="com.vw.ers.SurveyResponse" short-alias="responses" mutable="true">
+            <key-map field-name="surveyId"/>
+        </relationship>
+
+        <relationship type="many" related-entity-name="com.vw.ers.SurveyQuestionAppl" short-alias="questionAppls" mutable="true">
+            <key-map field-name="surveyId"/>
+        </relationship>
+
+        <master>
+            <detail relationship="responses"/>
+            <detail relationship="questionAppls"/>
+        </master>
+    </entity>
+
+    <entity entity-name="SurveyResponse" package-name="com.vw.ers" short-alias="surveyResponses">
+        <field name="surveyResponseId" type="id" is-pk="true"/>
+        <field name="surveyId" type="id"/>
+        <field name="partyId" type="id"/>
+        <field name="responseDate" type="date-time"/>
+        <field name="lastModifiedDate" type="date-time"/>
+        <field name="referenceId" type="text-long"/>
+        <field name="generalFeedback" type="text-long"/>
+        <field name="orderId" type="id"/>
+        <field name="orderItemSeqId" type="id"/>
+        <field name="statusId" type="id"/>
+    </entity>
+
+    <entity entity-name="SurveyQuestion" package-name="com.vw.ers" short-alias="surveyQuestions">
+        <field name="surveyQuestionId" type="id" is-pk="true"/>
+        <field name="surveyQuestionCategoryId" type="id"/>
+        <field name="surveyQuestionTypeId" type="id"/>
+        <field name="description" type="text-long"/>
+        <field name="question" type="text-very-long"/>
+        <field name="hint" type="text-very-long"/>
+        <field name="enumTypeId" type="id"/>
+        <field name="geoId" type="id"/>
+        <field name="formatString" type="text-short"/>
+
+        <!--<master></master>-->
+    </entity>
+
+    <entity entity-name="SurveyQuestionOption" package-name="com.vw.ers">
+        <field name="surveyQuestionId" type="id" is-pk="true"/>
+        <field name="surveyOptionSeqId" type="id" is-pk="true"/>
+        <field name="description" type="text-long"/>
+        <field name="sequenceNum" type="number-integer"/>
+        <field name="amountBase" type="currency-amount"/>
+        <field name="amountBaseUomId" type="id"/>
+        <field name="weightFactor" type="number-float"/>
+        <field name="duration" type="number-integer"/>
+        <field name="durationUomId" type="id"/>
+    </entity>
+
+    <entity entity-name="SurveyQuestionType" package-name="com.vw.ers">
+        <field name="surveyQuestionTypeId" type="id" is-pk="true"/>
+        <field name="description" type="text-long"/>
+        <seed-data>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="BOOLEAN" description="Boolean (Yes/No)"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="CONTENT" description="Content Record"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="COUNTRY" description="Country"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="CREDIT_CARD" description="Credit Card Number"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="GEO" description="Geo List"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="GIFT_CARD" description="Gift Card Number"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="DATE" description="Date String (mm/dd/yyyy)"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="EMAIL" description="Email Address"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="ENUMERATION" description="Enumeration"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="NUMBER_CURRENCY" description="Numeric (Currency)"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="NUMBER_FLOAT" description="Numeric (Float)"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="NUMBER_LONG" description="Numeric (Long)"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="OPTION" description="Selected Option"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="PASSWORD" description="Password"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="SEPERATOR_LINE" description="Seperator Line"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="SEPERATOR_TEXT" description="Seperator Text"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="STATE_PROVINCE" description="State/Province"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="TEXT_SHORT" description="Short Text (single-line)"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="TEXT_LONG" description="Long Text (single-line)"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="TEXTAREA" description="Text (multi-line)"/>
+            <com.vw.ers.SurveyQuestionType surveyQuestionTypeId="URL" description="URL"/>
+        </seed-data>
+    </entity>
+
+    <entity entity-name="SurveyQuestionCategory" package-name="com.vw.ers">
+        <field name="surveyQuestionCategoryId" type="id" is-pk="true"/>
+        <field name="parentCategoryId" type="id"/>
+        <field name="description" type="text-long"/>
+    </entity>
+
+    <entity entity-name="SurveyQuestionAppl" package-name="com.vw.ers" short-alias="surveyQuestionAppls">
+        <field name="surveyId" type="id" is-pk="true"/>
+        <field name="surveyQuestionId" type="id" is-pk="true"/>
+        <field name="fromDate" type="date-time" is-pk="true"/>
+        <field name="thruDate" type="date-time"/>
+        <field name="surveyPageSeqId" type="id"/>
+        <field name="surveyMultiRespId" type="id"/>
+        <field name="surveyMultiRespColId" type="id"><description>Used to optionally associate this question to a specific column in the Multi-Response set; with this you can associate a single question to each cell in the question/column grid; this is useful for AcroForm round trips where the target PDF needs a question associated with each cell, or even the same question applied with different externalFieldRef values.</description></field>
+        <field name="requiredField" type="text-indicator"/>
+        <field name="sequenceNum" type="number-integer"/>
+        <field name="externalFieldRef" type="text-long"><description>External field ID/reference; for AcroForms used to track the field ID</description></field>
+        <field name="withSurveyQuestionId" type="id"><description>These two with* fields are used to specify that this question should only appear if the with option has been selected for the with question.</description></field>
+        <field name="withSurveyOptionSeqId" type="id"/>
+    </entity>
+
+    <entity entity-name="SurveyResponseAnswer" package-name="com.vw.ers">
+        <field name="surveyResponseId" type="id" is-pk="true"/>
+        <field name="surveyQuestionId" type="id" is-pk="true"/>
+        <field name="surveyMultiRespColId" type="id" is-pk="true"><description>This is needed to support multiple responses for different MultiResp Columns; if not part of a MultiResp will be _NA_</description></field>
+        <field name="surveyMultiRespId" type="id"><description>This is not part of the primary key, but should be populated so that the SurveyMultiRespColumn can be more easily looked up.</description></field>
+        <field name="booleanResponse" type="text-indicator"/>
+        <field name="currencyResponse" type="currency-amount"/>
+        <field name="floatResponse" type="number-float"/>
+        <field name="numericResponse" type="number-integer"/>
+        <field name="textResponse" type="text-very-long"/>
+        <field name="surveyOptionSeqId" type="id"/>
+        <field name="contentId" type="id"/>
+        <field name="answeredDate" type="date-time"/>
+        <field name="amountBase" type="currency-amount"/>
+        <field name="amountBaseUomId" type="id"/>
+        <field name="weightFactor" type="number-float"/>
+        <field name="duration" type="number-integer"/>
+        <field name="durationUomId" type="id"/>
+        <field name="sequenceNum" type="number-integer"/>
+    </entity>
+
+    <entity entity-name="SurveyMultiResp" package-name="com.vw.ers">
+        <field name="surveyId" type="id" is-pk="true"/>
+        <field name="surveyMultiRespId" type="id" is-pk="true"/>
+        <field name="multiRespTitle" type="text-short"/>
+    </entity>
+
+    <entity entity-name="SurveyMultiRespColumn" package-name="org.ofbiz.content.survey">
+        <field name="surveyId" type="id" is-pk="true"/>
+        <field name="surveyMultiRespId" type="id" is-pk="true"/>
+        <field name="surveyMultiRespColId" type="id" is-pk="true"/>
+        <field name="columnTitle" type="text-short"/>
+        <field name="sequenceNum" type="number-integer"/>
+
+    </entity>
+
+    <entity entity-name="SurveyPage" package-name="com.vw.ers">
+        <field name="surveyId" type="id" is-pk="true"/>
+        <field name="surveyPageSeqId" type="id" is-pk="true"/>
+        <field name="pageName" type="text-short"/>
+        <field name="sequenceNum" type="number-integer"/>
+    </entity>
+
+</entities>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-1.6.xsd"
+        default-menu-include="false">
+    
+    <transition name="newSurvey">
+        <default-response url="../EditSurvey"/>
+    </transition>
+
+    <transition name="editSurvey">
+        <default-response url="../EditSurvey"/>
+    </transition>
+
+    <actions>
+        <entity-find entity-name="com.vw.ers.Survey" list="surveyList">
+            <search-form-inputs default-order-by="^surveyName"/></entity-find>
+    </actions>
+    <widgets>
+        <container id="button-bar"><link url="newSurvey" text="New Survey" link-type="anchor-button"/></container>
+        <form-list name="ListSurveys" list="surveyList">
+            <field name="surveyId">
+                <default-field>
+                    <link url="editSurvey" text="${surveyId}"/>
+                </default-field>
+            </field>
+            <field name="surveyName">
+                <header-field title="Name" show-order-by="case-insensitive"/>
+                <default-field><display also-hidden="false"/></default-field>
+            </field>
+            <field name="description">
+                <header-field show-order-by="case-insensitive"/>
+                <default-field><display also-hidden="false"/></default-field>
+            </field>
+        </form-list>
+    </widgets>
+</screen>

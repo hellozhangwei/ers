@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-1.6.xsd"
+        require-authentication="false" include-child-content="true" menu-image="glyphicon glyphicon-flash" menu-image-type="icon">
+
+    <subscreens default-item="Event">
+        <!--<subscreens-item name="StaticPages" menu-index="7" menu-title="Markdown"/>-->
+    </subscreens>
+
+
+	<widgets>
+        <label type="h1" text="Welcome Admin!"/>
+        <subscreens-panel id="ers-app" type="popup" title="Ers App"/>
+        <!--<subscreens-active/>-->
+    </widgets>
+</screen>

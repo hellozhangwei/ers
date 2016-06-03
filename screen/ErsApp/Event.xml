@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-1.6.xsd"
+        default-menu-title="Events" default-menu-index="2">
+
+    <subscreens default-item="FindEvent"/>
+
+    <widgets>
+        <label type="h1" text="Event!"/>
+        <!--
+        <section name="ErsMenu" condition="eventId">
+            <widgets>
+                <subscreens-menu id="ers-menu" type="tab"/>
+            </widgets>
+        </section>-->
+        <subscreens-active/>
+    </widgets>
+</screen>

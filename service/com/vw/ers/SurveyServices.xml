@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-1.6.xsd">
+
+    <service verb="create" noun="Survey" displayName="Create an Survey" type="entity-auto" allow-remote="true">
+        <in-parameters>
+            <auto-parameters include="nonpk"/>
+            <parameter name="surveyName" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <auto-parameters include="pk" required="true"/>
+        </out-parameters>
+    </service>
+
+    <service verb="update" noun="Survey" displayName="Update an Survey" type="entity-auto" allow-remote="true">
+        <in-parameters>
+            <auto-parameters include="pk" required="true"/>
+            <auto-parameters include="nonpk"/>
+        </in-parameters>
+        <out-parameters>
+            <!--<auto-parameters include="pk" required="true"/>-->
+        </out-parameters>
+    </service>
+</services>

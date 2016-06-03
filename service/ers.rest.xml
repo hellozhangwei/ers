@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- General Guideline Verbs: GET=find, POST=create, PUT=store (create or update), PATCH=update, DELETE=delete  -->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/rest-api-1.6.xsd"
+        name="ers" displayName="ERS REST API" version="1.6.2">
+    <resource name="surveys">
+        <method type="get"><entity name="surveys" masterName="default" operation="list"/></method>
+        <method type="post"><entity name="surveys" operation="create"/></method>
+        <id name="surveyId">
+            <method type="get"><entity name="surveys" masterName="default" operation="one"/></method>
+            <method type="post"><entity name="surveys" operation="store"/></method>
+
+            <resource name="surveyResponses">
+                <method type="get"><entity name="surveyResponses" operation="list"/></method>
+                <id name="surveyResponseId">
+                    <method type="get"><entity name="surveyResponses" operation="one"/></method>
+                    <method type="patch"><entity name="surveyResponses" operation="update"/></method>
+                    <method type="put"><entity name="surveyResponses" operation="store"/></method>
+                    <method type="delete"><entity name="surveyResponses" operation="delete"/></method>
+                </id>
+            </resource>
+
+            <resource name="questionAppls">
+                <method type="get"><entity name="surveyQuestionAppls" operation="list"/></method>
+                <method type="post"><entity name="surveyQuestionAppls" operation="store"/></method>
+                <id name="fromDate">
+                    <method type="get"><entity name="com.vw.ers.SurveyQuestionAppl" operation="one"/></method>
+                    <method type="patch"><entity name="com.vw.ers.SurveyQuestionAppl" operation="update"/></method>
+                    <method type="put"><entity name="com.vw.ers.SurveyQuestionAppl" operation="store"/></method>
+                    <method type="delete"><entity name="com.vw.ers.SurveyQuestionAppl" operation="delete"/></method>
+                </id>
+            </resource>
+
+        </id>
+    </resource>
+
+    <resource name="surveyQuestions">
+        <method type="get"><entity name="surveyQuestions" operation="list"/></method>
+        <method type="post"><entity name="surveyQuestions" operation="create"/></method>
+        <method type="patch"><entity name="surveyQuestions" operation="update"/></method>
+
+        <id name="surveyQuestionId">
+            <method type="get"><entity name="surveyQuestions" operation="one"/></method>
+        </id>
+    </resource>
+
+<!--
+    <resource name="surveyQuestionAppls">
+        <method type="get"><entity name="surveyQuestionAppls" operation="list"/></method>
+        <method type="post"><entity name="surveyQuestionAppls" operation="create"/></method>
+        &lt;!&ndash;
+        <id name="surveyQuestionId">
+            <method type="get"><service name="com.vw.ers.SurveyQuestionApplServices.get#SurveyQuestionAppl"/></method>
+        </id>
+        &ndash;&gt;
+    </resource>
+-->
+
+</resource>

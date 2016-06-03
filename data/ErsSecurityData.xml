@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-facade-xml type="seed">
+    <moqui.screen.SubscreensItem screenLocation="component://webroot/screen/webroot/apps.xml"
+                                 subscreenName="ers" menuTitle="VW ERS" menuIndex="999" menuInclude="Y"
+                                 subscreenLocation="component://ers/screen/ErsApp.xml"/>
+<!--
+    <moqui.security.ArtifactGroup artifactGroupId="ERS_APP" description="ERS App (via root screen)"/>
+    <moqui.security.ArtifactGroupMember artifactGroupId="ERS_APP" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y" artifactName="component://ers/screen/ErsApp.xml"/>
+    <moqui.security.ArtifactAuthz artifactAuthzId="ERS_AUTHZ_ALL" userGroupId="ADMIN" artifactGroupId="ERS_APP" authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
+
+    <moqui.security.ArtifactGroup artifactGroupId="ERS_API" description="ERS REST API (via root resource)"/>
+    <moqui.security.ArtifactGroupMember artifactGroupId="ERS_API" artifactTypeEnumId="AT_REST_PATH" inheritAuthz="Y" artifactName="/ers"/>
+    <moqui.security.ArtifactAuthz artifactAuthzId="ERSAPI_AUTHZ_ALL" userGroupId="ADMIN" artifactGroupId="ERS_API" authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>-->
+
+    <moqui.security.ArtifactGroupMember artifactGroupId="ERS_API" artifactName="com\.vw\.ers\..*" nameIsPattern="Y" artifactTypeEnumId="AT_SERVICE" inheritAuthz="Y"/>
+    <moqui.security.ArtifactGroupMember artifactGroupId="ERS_API" artifactName="com\.vw\.ers\..*" nameIsPattern="Y" artifactTypeEnumId="AT_ENTITY" inheritAuthz="Y"/>
+
+    <moqui.security.ArtifactGroupMember artifactGroupId="ERS_APP" artifactName="moqui\.ers\..*" nameIsPattern="Y" artifactTypeEnumId="AT_SERVICE" inheritAuthz="Y"/>
+    <moqui.security.ArtifactGroupMember artifactGroupId="ERS_APP" artifactName="moqui\.ers\..*" nameIsPattern="Y" artifactTypeEnumId="AT_ENTITY" inheritAuthz="Y"/>
+</entity-facade-xml>

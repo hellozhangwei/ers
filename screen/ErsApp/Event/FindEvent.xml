@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-1.6.xsd"
+        default-menu-include="false">
+
+    <transition name="newEvent">
+        <default-response url="."/>
+    </transition>
+
+    <transition name="Archive">
+        <default-response url="."/>
+    </transition>
+
+    <actions>
+
+    </actions>
+    <widgets>
+        <container id="button-bar"><link url="newEvent" text="New Event" link-type="anchor-button"/></container>
+
+        <label text="event list here"/>
+        <!--<subscreens-menu type="popup" id="ers-home" title="Home"/>-->
+        <!--<subscreens-menu type="popup-tree" id="ers-event" title="Event" />-->
+
+        <container-panel id="dashboard-panel" dynamic="true">
+        <panel-left>
+            <!--<label text="Operate" type="h2"/>-->
+
+            <container>
+                <!--<link url="Archive" link-type="anchor"><image url="/hmstatic/images/project-business120.png"/></link>-->
+                <link text="Archive" url="Archive" link-type="anchor"/>
+            </container>
+
+            <container>
+                <!--<link url="Archive" link-type="anchor"><image url="/hmstatic/images/project-business120.png"/></link>-->
+                <link text="Survey" url="Archive" link-type="anchor"/>
+            </container>
+
+        </panel-left>
+            <panel-center>
+                <label text="centerrrrrrrrrrrrrrrrrrrr"/>
+            </panel-center>
+        </container-panel>
+
+    </widgets>
+</screen>

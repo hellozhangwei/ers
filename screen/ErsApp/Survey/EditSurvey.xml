@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-1.6.xsd"
+        default-menu-title="ERS" default-menu-index="1">
+    <parameter name="surveyId"/>
+
+    <transition name="createSurvey">
+        <service-call name="com.vw.ers.SurveyServices.createSurvey"/>
+        <default-response url="."/>
+    </transition>
+
+    <transition name="updateSurvey">
+        <service-call name="com.vw.ers.SurveyServices.updateSurvey"/>
+        <default-response url="."/>
+    </transition>
+    <actions>
+        <entity-find-one entity-name="com.vw.ers.Survey" value-field="survey"/>
+        <log message="EditSurvey surveyId [${surveyId}] survey [${survey}]"/>
+    </actions>
+    <widgets>
+
+        <section name="create">
+            <condition><compare field="survey" operator="empty"/></condition>
+            <actions>
+                <!-- this is not constrained and sorted here because it is a view entity with those done internally -->
+                <!--<entity-find entity-name="ExampleStatusItem" list="exampleStatusItemList"/>-->
+            </actions>
+            <widgets>
+                <form-single name="CreateSurvey" transition="createSurvey" focus-field="surveyName">
+                    <!--<auto-fields-service service-name="moqui.example.ExampleServices.create#Example"/>-->
+                    <!-- for the auto-service, basically the entity and operation: <auto-fields-service service-name="create#Example"/> -->
+
+                    <field name="surveyId">
+                        <conditional-field condition="surveyId">
+                            <display text="Not Found: [${surveyId}]" also-hidden="false"/>
+                        </conditional-field>
+                    </field>
+
+                    <field name="surveyName"><default-field tooltip="The name of the survey"><text-line/></default-field></field>
+                    <field name="description"><default-field tooltip="The description of the survey"><text-line/></default-field></field>
+
+                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+
+                </form-single>
+            </widgets>
+        </section>
+        <section name="update">
+            <condition><compare field="survey" operator="not-empty"/></condition>
+            <widgets>
+                <form-single name="UpdateSurvey" extends="CreateSurvey" transition="updateSurvey" map="survey">
+                    <field name="surveyId">
+                        <!-- this is in a conditional-field instead of default-field so that it can override the one in CreateExample -->
+                        <conditional-field condition="surveyId"><display/></conditional-field>
+                    </field>
+
+                    <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                </form-single>
+            </widgets>
+        </section>
+    </widgets>
+</screen>
